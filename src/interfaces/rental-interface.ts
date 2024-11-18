@@ -8,3 +8,9 @@ export interface Rental {
     carId: string;
     car: Car;
 }
+
+export interface CheapestRent {
+    startDate: string;
+    endDate: string;
+    isLoyaltyMember: boolean;
+}

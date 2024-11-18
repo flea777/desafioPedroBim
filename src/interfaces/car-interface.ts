@@ -6,6 +6,10 @@ export interface Car {
     manufacturer: string;
     model: string;
     modelYear: string;
+    weekdayPrice: number;
+    weekendPrice: number;
+    weekdayPriceLoyalty: number;
+    weekendPriceLoyalty: number;
     category: Category;
     rentals: Rental[];
     createdAt: Date;

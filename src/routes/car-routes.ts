@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { CarUseCase } from "../usecases/car-usecase";
 import { CarCreate } from "../interfaces/car-interface";
 import { verifyCategory } from "../utils/category-verify";
+import { CheapestRent } from "../interfaces/rental-interface";
 
 export async function carRoutes(fastify: FastifyInstance) {
     const carUseCase = new CarUseCase();
@@ -25,6 +26,16 @@ export async function carRoutes(fastify: FastifyInstance) {
         const { category } = req.params;
         try {
             const data = await carUseCase.listCarsByCategory(category);
+            return reply.status(200).send(data);
+        } catch (error) {
+            reply.send(error);
+        }
+    });
+
+    fastify.post<{Body: CheapestRent}>('/cheapest', async (req, reply) => {
+        const { startDate, endDate, isLoyaltyMember } = req.body;
+        try {
+            const data = await carUseCase.findCheapestCar(startDate, endDate, isLoyaltyMember);
             return reply.status(200).send(data);
         } catch (error) {
             reply.send(error);
