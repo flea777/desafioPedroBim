@@ -10,6 +10,8 @@ export interface Car {
     category: Category;
     prices: Price[];
     rentals: Rental[];
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface CarCreate {
