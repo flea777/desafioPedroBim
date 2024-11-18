@@ -1,0 +1,1 @@
+export type Category = 'Compact Hatch' | 'Medium Hatch' | 'Sedan' | 'Van' | 'Pickup';
