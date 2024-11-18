@@ -6,17 +6,22 @@ export class CarUseCase {
     constructor() {
         this.carRepository = new CarRepositoryPrisma();
     }
-
+    
     async create({ manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals }: CarCreate): Promise<Car> {
-        const result = this.carRepository.create({
+        const data = this.carRepository.create({
             manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals
         });
-
-        return result;
+        
+        return data;
+    }
+    
+    async listAllCars() {
+        const data = await this.carRepository.findAllCars();
+        return data;
     }
 
-    async listAllCars() {
-        const result = await this.carRepository.findAllCars();
-        return result;
-    }   
+    async delete(id: string) {
+        const data = await this.carRepository.delete(id);
+        return data;
+    }
 }

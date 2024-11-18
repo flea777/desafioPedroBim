@@ -65,9 +65,9 @@ export async function carRoutes(fastify: FastifyInstance) {
 
         try {
             const data = await carUseCase.delete(id);
-            return reply.send(data);
+            return reply.status(204).send(data);
         } catch (error) {
-            reply.send(data);
+            reply.send(error);
         }
     });
 

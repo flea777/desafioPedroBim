@@ -25,6 +25,7 @@ export interface CarCreate {
 }
 
 export interface CarRepository {
+    delete(id: string): Promise<boolean>;
     create(data: CarCreate): Promise<Car>;
     findAllCars(): Promise<Car[]>;
 }

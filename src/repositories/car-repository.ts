@@ -2,7 +2,7 @@ import { prisma } from "../database/prisma-client";
 import { Car, CarCreate, CarRepository } from "../interfaces/car-interface";
 
 class CarRepositoryPrisma implements CarRepository {
-
+    
     async create(data: CarCreate): Promise<Car> {
         const result = await prisma.car.create({
             data: {
@@ -20,19 +20,26 @@ class CarRepositoryPrisma implements CarRepository {
                 },
             },
         });
-
+        
         return result;
     }
-
+    
     async findAllCars(): Promise<Car[]> {
         const result = await prisma.car.findMany({});
 
         return result;
 
     }
+    
+    async delete(id: string): Promise<boolean> {
+        const result = await prisma.car.delete({
+            where: {
+                id,
+            },
+        });
 
-    // async deleteBy
-
+        return result ? true : false;
+    }
 }
 
 export { CarRepositoryPrisma };
