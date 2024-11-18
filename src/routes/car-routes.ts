@@ -15,7 +15,17 @@ export async function carRoutes(fastify: FastifyInstance) {
     fastify.get('/', async (req, reply) => {
         try {
             const data = await carUseCase.listAllCars();
-            return reply.send(data);
+            return reply.status(200).send(data);
+        } catch (error) {
+            reply.send(error);
+        }
+    });
+
+    fastify.get<{Params: {category: string}}>('/:category', async (req, reply) => {
+        const { category } = req.params;
+        try {
+            const data = await carUseCase.listCarsByCategory(category);
+            return reply.status(200).send(data);
         } catch (error) {
             reply.send(error);
         }

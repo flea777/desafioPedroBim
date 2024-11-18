@@ -30,6 +30,17 @@ class CarRepositoryPrisma implements CarRepository {
         return result;
 
     }
+
+    async findCarsByCategory(category: string): Promise<Car[]> {
+        const result = await prisma.car.findMany({
+            where: {
+                category,
+            },
+        });
+
+        return result;
+
+    }
     
     async delete(id: string): Promise<boolean> {
         const result = await prisma.car.delete({

@@ -20,6 +20,11 @@ export class CarUseCase {
         return data;
     }
 
+    async listCarsByCategory(category: string) {
+        const data = await this.carRepository.findCarsByCategory(category);
+        return data;
+    }
+
     async delete(id: string) {
         const data = await this.carRepository.delete(id);
         return data;
