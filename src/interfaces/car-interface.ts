@@ -1,5 +1,4 @@
 import { Category } from "../types/category-types";
-import { Price } from "./price-interface";
 import { Rental } from "./rental-interface";
 
 export interface Car {
@@ -8,7 +7,6 @@ export interface Car {
     model: string;
     modelYear: string;
     category: Category;
-    prices: Price[];
     rentals: Rental[];
     createdAt: Date;
     updatedAt: Date;
@@ -19,10 +17,14 @@ export interface CarCreate {
     model: string;
     modelYear: string;
     category: Category;
-    prices: Price[];
+    weekdayPrice: number,
+    weekendPrice: number,
+    weekdayPriceLoyalty: number,
+    weekendPriceLoyalty: number,
     rentals: Rental[];
 }
 
 export interface CarRepository {
     create(data: CarCreate): Promise<Car>;
+    findAllCars(): Promise<Car[]>;
 }

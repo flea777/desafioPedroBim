@@ -10,10 +10,10 @@ class CarRepositoryPrisma implements CarRepository {
                 model: data.model,
                 modelYear: data.modelYear,
                 category: data.category,
-                prices:
-                {
-                    create: data.prices
-                },
+                weekdayPrice: data.weekdayPrice,
+                weekendPrice: data.weekendPrice, 
+                weekdayPriceLoyalty: data.weekdayPriceLoyalty, 
+                weekendPriceLoyalty: data.weekendPriceLoyalty,
                 rentals:
                 {
                     create: data.rentals
@@ -23,6 +23,15 @@ class CarRepositoryPrisma implements CarRepository {
 
         return result;
     }
+
+    async findAllCars(): Promise<Car[]> {
+        const result = await prisma.car.findMany({});
+
+        return result;
+
+    }
+
+    // async deleteBy
 
 }
 

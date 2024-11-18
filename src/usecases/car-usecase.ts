@@ -7,9 +7,16 @@ export class CarUseCase {
         this.carRepository = new CarRepositoryPrisma();
     }
 
-    async create({manufacturer, model, modelYear, category, prices, rentals}: CarCreate): Promise<Car> {
-        const result = this.carRepository.create({manufacturer, model, modelYear, category, prices, rentals});
+    async create({ manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals }: CarCreate): Promise<Car> {
+        const result = this.carRepository.create({
+            manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals
+        });
 
         return result;
     }
+
+    async listAllCars() {
+        const result = await this.carRepository.findAllCars();
+        return result;
+    }   
 }

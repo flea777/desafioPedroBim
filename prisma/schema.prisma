@@ -11,31 +11,20 @@ datasource db {
 }
 
 model Car {
-  id           String   @id @default(uuid())
-  manufacturer String
-  model        String
-  modelYear    String
-  category     String
-  prices       Price[]
-  rentals      Rental[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@map("cars")
-}
-
-model Price {
   id                  String   @id @default(uuid())
+  manufacturer        String
+  model               String
+  modelYear           String
+  category            String
   weekdayPrice        Float
   weekendPrice        Float
   weekdayPriceLoyalty Float
   weekendPriceLoyalty Float
-  carId               String
-  car                 Car      @relation(fields: [carId], references: [id])
+  rentals             Rental[]
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  @@map("prices")
+  @@map("cars")
 }
 
 model Rental {
