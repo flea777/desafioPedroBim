@@ -11,3 +11,16 @@ export interface Car {
     prices: Price[];
     rentals: Rental[];
 }
+
+export interface CarCreate {
+    manufacturer: string;
+    model: string;
+    modelYear: string;
+    category: Category;
+    prices: Price[];
+    rentals: Rental[];
+}
+
+export interface CarRepository {
+    create(data: CarCreate): Promise<Car>;
+}

@@ -1,6 +1,10 @@
 import fastify, { FastifyInstance } from "fastify";
-
+import { carRoutes } from "./routes/car-routes";
 const app: FastifyInstance = fastify({ logger: true });
+
+app.register(carRoutes, {
+    prefix: '/cars',
+});
 
 app.listen(
     {
