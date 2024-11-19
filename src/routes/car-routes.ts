@@ -3,7 +3,6 @@ import { CarUseCase } from "../usecases/car-usecase";
 import { CarCreate } from "../interfaces/car-interface";
 import { verifyCategory } from "../utils/category-verify";
 import { CheapestRent } from "../interfaces/rental-interface";
-import { FipeService } from "../services/fipe-service";
 
 export async function carRoutes(fastify: FastifyInstance) {
     const carUseCase = new CarUseCase();
