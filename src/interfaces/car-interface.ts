@@ -11,7 +11,7 @@ export interface Car {
     weekdayPriceLoyalty: number;
     weekendPriceLoyalty: number;
     category: Category;
-    rentals: Rental[];
+    rentals?: Rental[];
     createdAt: Date;
     updatedAt: Date;
 }
