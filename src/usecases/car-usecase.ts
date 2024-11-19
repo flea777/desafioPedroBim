@@ -1,6 +1,7 @@
 import { Car, CarCreate, CarRepository } from "../interfaces/car-interface";
 import { CarRepositoryPrisma } from "../repositories/car-repository";
 import { categoryRank } from "../types/category-types";
+import { FipeService } from "../services/fipe-service";
 
 export class CarUseCase {
     private carRepository: CarRepository;
@@ -9,12 +10,24 @@ export class CarUseCase {
     }
     
     async create({ manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals }: CarCreate): Promise<Car> {
-        const data = this.carRepository.create({
-            manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals
-        });
-        
-        return data;
+        const brandExists = await FipeService.verifyIfBrandExists(manufacturer);
+        if (brandExists) {
+            const brandCode = await FipeService.getBrandCode(manufacturer);
+            
+            const modelExists = await FipeService.verifyIfModelExists(model, brandCode);
+            if (modelExists) {
+                const data = await this.carRepository.create({
+                    manufacturer, model, modelYear, category, weekdayPrice, weekendPrice, weekdayPriceLoyalty, weekendPriceLoyalty, rentals
+                });
+                return data;
+            } else {
+                throw new Error('This model does not exist');
+            }
+        } else {
+            throw new Error('This brand does not exist');
+        }
     }
+    
     
     async listAllCars() {
         const data = await this.carRepository.findAllCars();
